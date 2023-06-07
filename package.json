@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "concurrently \"npm run dev:next\" \"npm run watch:zk\"",
+    "build": "npm run build:zk && npm run build:next",
+    "dev:next": "next dev",
+    "build:next": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:zk": "rollup -c",
+    "watch:zk": "rollup -c --watch"
   },
   "dependencies": {
     "@types/node": "20.2.5",
@@ -17,6 +21,12 @@
     "next": "13.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.1.3"
+    "typescript": "5.1.3",
+    "zkwasm": "^0.2.8"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.1",
+    "concurrently": "^8.1.0",
+    "rollup": "^3.24.0"
   }
 }
